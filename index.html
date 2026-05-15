@@ -14,13 +14,13 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(201,168,76,.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(139,26,26,.1) 0%,transparent 50%)}
 .hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(1.5rem,4vw,2.4rem);font-weight:400;margin-bottom:.5rem;position:relative}
 .hero .sub{opacity:.65;font-size:.78rem;margin-bottom:1.2rem;position:relative;max-width:750px;margin-left:auto;margin-right:auto}
-.hero .sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;max-width:1050px;margin:0 auto;position:relative}
+.hero .sr{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;max-width:1200px;margin:0 auto;position:relative}
 .hero .sb{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:9px 6px}
 .hero .sb .n{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(.95rem,2vw,1.3rem);font-weight:400;color:#e8a87c}
 .hero .sb .n.bad{color:#f87171}.hero .sb .n.good{color:#6ee7b7}
 .hero .sb .l{font-size:.5rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.5);margin-top:.1rem;font-weight:500}
-nav{display:flex;gap:0;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-nav button{padding:12px 13px;font-size:.63rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;transition:all .25s;text-transform:uppercase;letter-spacing:.05em;font-family:'DM Sans',system-ui,sans-serif}
+nav{display:flex;gap:0;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.04);justify-content:center}
+nav button{padding:13px 17px;font-size:.69rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;transition:all .25s;text-transform:uppercase;letter-spacing:.05em;font-family:'DM Sans',system-ui,sans-serif}
 nav button:hover{color:var(--text);background:rgba(0,0,0,.02)}
 nav button.active{color:var(--navy);border-bottom-color:var(--gold)}
 .ct{max-width:1200px;margin:0 auto;padding:24px}
@@ -61,8 +61,8 @@ tr:hover{background:rgba(15,41,66,.02)}.tg{background:rgba(15,41,66,.06);font-we
 .footer a{color:var(--navy);text-decoration:none;font-weight:600;border-bottom:1px solid var(--gold)}
 .ph{text-align:center;padding:50px 20px;color:var(--muted)}
 .ph h2{font-family:'DM Serif Display',Georgia,serif;font-size:1.3rem;color:var(--navy);margin-bottom:6px;font-weight:400}
-@media(max-width:768px){.hero .sr{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:1fr}.kg{grid-template-columns:repeat(2,1fr)}.ct{padding:14px}}
-@media(max-width:480px){.kg{grid-template-columns:1fr}nav button{padding:9px 7px;font-size:.58rem}.hero .sr{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.hero .sr{grid-template-columns:repeat(5,1fr)}.g2{grid-template-columns:1fr}.kg{grid-template-columns:repeat(2,1fr)}.ct{padding:14px}}
+@media(max-width:480px){.kg{grid-template-columns:1fr}nav button{padding:10px 10px;font-size:.6rem}.hero .sr{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -517,6 +517,11 @@ sc('i1',{type:'bar',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug
 sc('i2',{type:'bar',data:{labels:['Brazil','Guatemala','Dom.Rep.','El Salvador','Haiti','Honduras','Other'],datasets:[{data:[780,450,380,320,280,240,650],backgroundColor:[C.g,C.b,C.p,C.o,C.cy,C.pk,C.sl],borderRadius:4}]},options:{indexAxis:'y',responsive:1,maintainAspectRatio:0,plugins:{legend:{display:0}},scales:{x:{grid:{color:G}},y:{grid:{display:0}}}}});
 sc('i3',{type:'bar',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'],datasets:[{label:'2025',data:[280,310,520,380,1500,350,320,340,1500,400],backgroundColor:C.r,borderRadius:4},{label:'2024',data:[95,100,170,125,160,115,105,110,120,130],backgroundColor:C.sl,borderRadius:4}]},options:{responsive:1,maintainAspectRatio:0,plugins:{legend:{position:'top'}},scales:{y:{grid:{color:G}},x:{grid:{display:0}}}}});
 sc('i4',{type:'doughnut',data:{labels:['MA','CT','RI','ME','NH','VT'],datasets:[{data:[45,18,12,10,9,6],backgroundColor:[C.r,C.b,C.p,C.g,C.am,C.cy]}]},options:{responsive:1,maintainAspectRatio:0,cutout:'45%',plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:10}}}}}});
+}
+
+// ---- CRE MAIN TAB — bootstrap the default sub-tab ----
+if(id==='cre'){
+  if(!I['cre-overview']){I['cre-overview']=1;init('cre-overview');}
 }
 
 // ---- CRE SUB-TABS ----
