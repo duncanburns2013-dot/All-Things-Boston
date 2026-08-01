@@ -1,0 +1,60 @@
+name: Update 311 Data
+
+# Boston's 311 dataset is refreshed continuously (both the legacy per-year
+# resource and the NEW SYSTEM resource were last modified the same day), so a
+# weekly pull keeps the tab close without hammering the portal.
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: push-to-main
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch 311 data
+        run: python scripts/update_311_data.py
+
+      - name: Show what was fetched
+        run: |
+          python -c "
+          import json
+          d = json.load(open('data/311-latest.json'))
+          print('detail year:', d['detail_year'])
+          print('annual     :', d['annual_totals'])
+          print('resources  :', [r['name'] for r in d['resources_used']])
+          print('warnings   :', d['warnings'])
+          "
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/311-latest.json; then
+            echo "No change - nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/311-latest.json
+          git commit -m "data: refresh 311 service request figures"
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "Push succeeded on attempt $attempt"
+              exit 0
+            fi
+            echo "Push attempt $attempt rejected - pulling latest and rebasing"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+          done
+          echo "::error::Push failed after 5 attempts"
+          exit 1
