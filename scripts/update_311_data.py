@@ -40,7 +40,9 @@ import json
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone
+from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import urlopen, Request
 
@@ -61,17 +63,58 @@ def warn(msg):
     print(f"::warning::{msg}" if os.environ.get("GITHUB_ACTIONS") else f"WARNING: {msg}")
 
 
+# data.boston.gov sits behind a WAF that throttles bursts. The first run of this
+# script fired ~30 datastore_search_sql calls in 18 seconds and got HTTP 403
+# partway through — after the annual counts had succeeded, so the failure landed
+# on the detail aggregates rather than anywhere obvious. Pace the calls and back
+# off rather than hammering it.
+MIN_INTERVAL = 1.2      # seconds between requests
+MAX_RETRIES = 5
+_last_call = [0.0]
+
+
 def api(path):
-    req = Request(f"{BASE}/{path}", headers={"User-Agent": UA, "Accept": "application/json"})
-    with urlopen(req, timeout=120) as r:
-        payload = json.loads(r.read())
-    if not payload.get("success"):
-        raise RuntimeError(f"CKAN returned success=false for {path[:80]}")
-    return payload["result"]
+    delay = 3.0
+    last_err = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        wait = MIN_INTERVAL - (time.monotonic() - _last_call[0])
+        if wait > 0:
+            time.sleep(wait)
+        _last_call[0] = time.monotonic()
+        req = Request(f"{BASE}/{path}",
+                      headers={"User-Agent": UA, "Accept": "application/json"})
+        try:
+            with urlopen(req, timeout=120) as r:
+                payload = json.loads(r.read())
+            if not payload.get("success"):
+                raise RuntimeError(f"CKAN returned success=false for {path[:80]}")
+            return payload["result"]
+        except HTTPError as e:
+            last_err = e
+            # 403 here is throttling, not authorisation — the same URL succeeds
+            # when paced. Retry those alongside 429/5xx; fail fast on anything else.
+            if e.code not in (403, 429, 500, 502, 503, 504):
+                raise
+        except (URLError, TimeoutError) as e:
+            last_err = e
+        if attempt < MAX_RETRIES:
+            print(f"    retry {attempt}/{MAX_RETRIES - 1} after {delay:.0f}s ({last_err})")
+            time.sleep(delay)
+            delay *= 2
+    raise RuntimeError(f"gave up after {MAX_RETRIES} attempts: {last_err}")
 
 
 def sql(query):
     return api(f"datastore_search_sql?sql={quote(query)}")["records"]
+
+
+def guard(label, fn, default):
+    """Run an aggregate; downgrade any failure to a warning instead of killing the run."""
+    try:
+        return fn()
+    except Exception as e:
+        warn(f"{label}: {e}")
+        return default
 
 
 # ---------------------------------------------------------------- discovery
@@ -275,17 +318,27 @@ def main():
     print(f"\nDetail year: {detail_year}")
     dsrcs = sources_for(detail_year)
 
-    nb = merge_neighborhoods([by_neighborhood(r, r["cols"], detail_year) for r in dsrcs])
-    cats = merge_counts([by_category(r, r["cols"], detail_year) for r in dsrcs])
-    stale = merge_counts([unresolved_over_30d(r, r["cols"], detail_year) for r in dsrcs])
+    nb = merge_neighborhoods([
+        guard(f"by_neighborhood[{r['name']}]",
+              lambda r=r: by_neighborhood(r, r["cols"], detail_year), {})
+        for r in dsrcs])
+    cats = merge_counts([
+        guard(f"by_category[{r['name']}]",
+              lambda r=r: by_category(r, r["cols"], detail_year), {})
+        for r in dsrcs])
+    stale = merge_counts([
+        guard(f"unresolved[{r['name']}]",
+              lambda r=r: unresolved_over_30d(r, r["cols"], detail_year), {})
+        for r in dsrcs])
 
     rodents = {}
     for y in years:
         srcs = sources_for(y)
-        try:
-            rodents[str(y)] = sum(rodent_count(r, r["cols"], y) for r in srcs)
-        except Exception as e:
-            warn(f"rodent {y}: {e}")
+        got = guard(f"rodent[{y}]",
+                    lambda srcs=srcs, y=y: sum(rodent_count(r, r["cols"], y) for r in srcs),
+                    None)
+        if got is not None:
+            rodents[str(y)] = got
 
     payload = {
         "fetched_at": datetime.now(timezone.utc).isoformat(),
@@ -309,6 +362,29 @@ def main():
         "unresolved_over_30d_by_type": stale,
         "warnings": warnings,
     }
+
+    # A run that lost the detail views to throttling is not a usable snapshot.
+    # Keep the previous one rather than publishing a hollowed-out file — but say
+    # so in the output, so a persistent failure is visible instead of absorbed.
+    if not nb and not cats:
+        prev = None
+        try:
+            with open(OUT, encoding="utf-8") as f:
+                prev = json.load(f)
+        except (OSError, ValueError):
+            pass
+        if prev and prev.get("by_neighborhood"):
+            warn("detail aggregates all failed — preserving previous snapshot")
+            prev["preserved_from_cache"] = True
+            prev["last_attempted_at"] = payload["fetched_at"]
+            prev["annual_totals"] = annual          # counts did succeed; keep them fresh
+            prev["annual_provenance"] = provenance
+            prev["warnings"] = warnings
+            with open(OUT, "w", encoding="utf-8") as f:
+                json.dump(prev, f, indent=2)
+            print(f"\nPreserved previous snapshot in {OUT} (annual totals refreshed)")
+            return 0
+        warn("detail aggregates all failed and no previous snapshot exists")
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
