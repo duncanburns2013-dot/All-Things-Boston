@@ -40,13 +40,17 @@ jobs:
 
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/311-latest.json; then
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Stage FIRST, then diff the index. `git diff` alone ignores untracked
+          # files, so on the first run — when data/311-latest.json does not exist
+          # yet — it reported "no change" and the job exited green having written
+          # the file and thrown it away.
+          git add data/311-latest.json
+          if git diff --cached --quiet -- data/311-latest.json; then
             echo "No change - nothing to commit."
             exit 0
           fi
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/311-latest.json
           git commit -m "data: refresh 311 service request figures"
           for attempt in 1 2 3 4 5; do
             if git push; then
