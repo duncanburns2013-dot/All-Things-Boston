@@ -41,7 +41,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import urlopen, Request
@@ -182,24 +182,46 @@ def count_for_year(res, cols, year):
 
 
 def by_neighborhood(res, cols, year):
-    """{neighborhood: {n, avg_days}} for one resource/year."""
+    """
+    {neighborhood: {n, avg_days}} for one resource/year.
+
+    Split deliberately into two queries. The combined form —
+    COUNT(*) plus AVG(EXTRACT(EPOCH FROM (closed::timestamp - opened::timestamp)))
+    in one GROUP BY — was rejected with HTTP 403 on every retry, while the plain
+    grouped count succeeds reliably (the schema probe ran exactly that against
+    the same resource). So the WAF is pricing the query, not throttling the
+    caller: retrying an expensive statement just fails five times more slowly.
+
+    The counts are the figures the tab actually leads with, so they run alone and
+    are kept even when the resolution-time average is refused.
+    """
     o, c, nb = cols["opened"], cols["closed"], cols["neighborhood"]
     if not (o and nb):
         return {}
-    avg = (f'AVG(EXTRACT(EPOCH FROM ("{c}"::timestamp - "{o}"::timestamp))/86400.0)'
-           if c else "NULL")
-    rows = sql(
-        f'SELECT "{nb}" AS nb, COUNT(*) AS n, {avg} AS avg_days '
-        f'FROM "{res["id"]}" '
-        f'WHERE "{o}" >= \'{year}-01-01\' AND "{o}" < \'{year + 1}-01-01\' '
-        f'GROUP BY "{nb}"')
+
+    window = f'"{o}" >= \'{year}-01-01\' AND "{o}" < \'{year + 1}-01-01\''
+    rows = sql(f'SELECT "{nb}" AS nb, COUNT(*) AS n FROM "{res["id"]}" '
+               f'WHERE {window} GROUP BY "{nb}"')
     out = {}
     for r in rows:
         nbname = (r.get("nb") or "").strip()
-        if not nbname:
-            continue
-        out[nbname] = {"n": int(r["n"]),
-                       "avg_days": float(r["avg_days"]) if r.get("avg_days") else None}
+        if nbname:
+            out[nbname] = {"n": int(r["n"]), "avg_days": None}
+
+    if not c:
+        return out
+
+    # Resolution time is a bonus, not a blocker.
+    def _avg():
+        return sql(
+            f'SELECT "{nb}" AS nb, '
+            f'AVG(EXTRACT(EPOCH FROM ("{c}"::timestamp - "{o}"::timestamp))/86400.0) AS avg_days '
+            f'FROM "{res["id"]}" WHERE {window} AND "{c}" IS NOT NULL GROUP BY "{nb}"')
+
+    for r in guard(f"avg_resolution[{res['name']}]", _avg, []):
+        nbname = (r.get("nb") or "").strip()
+        if nbname in out and r.get("avg_days") is not None:
+            out[nbname]["avg_days"] = float(r["avg_days"])
     return out
 
 
@@ -224,14 +246,23 @@ def rodent_count(res, cols, year):
 
 
 def unresolved_over_30d(res, cols, year, limit=15):
+    """
+    Open cases older than STALE_DAYS, by category.
+
+    Uses a plain date comparison rather than EXTRACT(EPOCH FROM ...) arithmetic.
+    The arithmetic form was refused with 403 on every retry (see by_neighborhood);
+    comparing the open date against a fixed cutoff is the same question asked
+    cheaply, and it reads more directly besides: still open, opened long enough
+    ago to be overdue.
+    """
     o, c, cat = cols["opened"], cols["closed"], cols["category"]
     if not (o and c and cat):
         return {}
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=STALE_DAYS)).strftime("%Y-%m-%d")
     rows = sql(
         f'SELECT "{cat}" AS c, COUNT(*) AS n FROM "{res["id"]}" '
         f'WHERE "{o}" >= \'{year}-01-01\' AND "{o}" < \'{year + 1}-01-01\' '
-        f'AND ("{c}" IS NULL OR '
-        f'     EXTRACT(EPOCH FROM ("{c}"::timestamp - "{o}"::timestamp))/86400.0 > {STALE_DAYS}) '
+        f'AND "{c}" IS NULL AND "{o}" < \'{cutoff}\' '
         f'GROUP BY "{cat}" ORDER BY n DESC LIMIT {limit}')
     return {(r.get("c") or "Unknown").strip(): int(r["n"]) for r in rows}
 
