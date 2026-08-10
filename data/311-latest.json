@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-08-10T17:04:53.151039+00:00",
+  "fetched_at": "2026-08-10T17:08:03.338133+00:00",
   "source": "data.boston.gov CKAN \u2014 311 Service Requests",
   "dataset_url": "https://data.boston.gov/dataset/311-service-requests",
   "note": "Boston split 311 across a legacy per-year resource and a differently-structured NEW SYSTEM resource when the backend changed in Oct 2025. Years from 2025 union both.",
@@ -283,133 +283,205 @@
     }
   },
   "by_neighborhood": {
-    "South Boston": {
-      "n": 2574,
-      "avg_days": null
+    "South Boston / South Boston Waterfront": {
+      "n": 10627,
+      "avg_days": 5.02,
+      "source_labels": [
+        "South Boston",
+        "South Boston / South Boston Waterfront",
+        "South Boston Waterfront"
+      ],
+      "is_catchall": false
     },
     "Boston": {
       "n": 4319,
-      "avg_days": null
+      "avg_days": 5.25,
+      "source_labels": [
+        "Boston"
+      ],
+      "is_catchall": true
     },
     "Hyde Park": {
       "n": 2786,
-      "avg_days": null
+      "avg_days": 9.19,
+      "source_labels": [
+        "Hyde Park"
+      ],
+      "is_catchall": false
     },
     "West Roxbury": {
       "n": 2800,
-      "avg_days": null
+      "avg_days": 6.74,
+      "source_labels": [
+        "West Roxbury"
+      ],
+      "is_catchall": false
     },
     "Beacon Hill": {
       "n": 2337,
-      "avg_days": null
+      "avg_days": 7.77,
+      "source_labels": [
+        "Beacon Hill"
+      ],
+      "is_catchall": false
     },
     "Downtown / Financial District": {
-      "n": 4526,
-      "avg_days": null
+      "n": 5370,
+      "avg_days": 6.99,
+      "source_labels": [
+        "Downtown",
+        "Downtown / Financial District"
+      ],
+      "is_catchall": false
     },
     "Fenway / Kenmore / Audubon Circle / Longwood": {
-      "n": 1526,
-      "avg_days": null
+      "n": 2432,
+      "avg_days": 5.78,
+      "source_labels": [
+        "Fenway",
+        "Fenway / Kenmore / Audubon Circle / Longwood",
+        "Longwood"
+      ],
+      "is_catchall": false
     },
     "Dorchester": {
       "n": 14186,
-      "avg_days": null
+      "avg_days": 7.07,
+      "source_labels": [
+        "Dorchester"
+      ],
+      "is_catchall": false
     },
     "Roslindale": {
       "n": 3791,
-      "avg_days": null
+      "avg_days": 7.45,
+      "source_labels": [
+        "Roslindale"
+      ],
+      "is_catchall": false
     },
-    "Brighton": {
-      "n": 2348,
-      "avg_days": null
+    "Allston / Brighton": {
+      "n": 9207,
+      "avg_days": 7.87,
+      "source_labels": [
+        "Allston",
+        "Allston / Brighton",
+        "Brighton"
+      ],
+      "is_catchall": false
     },
     "Charlestown": {
       "n": 3706,
-      "avg_days": null
-    },
-    "Allston": {
-      "n": 1176,
-      "avg_days": null
+      "avg_days": 10.5,
+      "source_labels": [
+        "Charlestown"
+      ],
+      "is_catchall": false
     },
     "Back Bay": {
       "n": 4805,
-      "avg_days": null
+      "avg_days": 4.86,
+      "source_labels": [
+        "Back Bay"
+      ],
+      "is_catchall": false
     },
     "Roxbury": {
       "n": 9034,
-      "avg_days": null
+      "avg_days": 5.6,
+      "source_labels": [
+        "Roxbury"
+      ],
+      "is_catchall": false
     },
     "Jamaica Plain": {
       "n": 5960,
-      "avg_days": null
+      "avg_days": 5.88,
+      "source_labels": [
+        "Jamaica Plain"
+      ],
+      "is_catchall": false
     },
     "Mission Hill": {
       "n": 1688,
-      "avg_days": null
+      "avg_days": 4.17,
+      "source_labels": [
+        "Mission Hill"
+      ],
+      "is_catchall": false
     },
     "Greater Mattapan": {
-      "n": 2437,
-      "avg_days": null
-    },
-    "Mattapan": {
-      "n": 1059,
-      "avg_days": null
-    },
-    "Allston / Brighton": {
-      "n": 5683,
-      "avg_days": null
+      "n": 3496,
+      "avg_days": 7.28,
+      "source_labels": [
+        "Greater Mattapan",
+        "Mattapan"
+      ],
+      "is_catchall": false
     },
     "South End": {
       "n": 8705,
-      "avg_days": null
+      "avg_days": 7.8,
+      "source_labels": [
+        "South End"
+      ],
+      "is_catchall": false
     },
     "Chestnut Hill": {
       "n": 4,
-      "avg_days": null
+      "avg_days": 2.5,
+      "source_labels": [
+        "Chestnut Hill"
+      ],
+      "is_catchall": false
     },
     "East Boston": {
       "n": 7046,
-      "avg_days": null
-    },
-    "South Boston / South Boston Waterfront": {
-      "n": 7792,
-      "avg_days": null
-    },
-    "Longwood": {
-      "n": 88,
-      "avg_days": null
+      "avg_days": 6.67,
+      "source_labels": [
+        "East Boston"
+      ],
+      "is_catchall": false
     },
     "Chinatown": {
       "n": 214,
-      "avg_days": null
-    },
-    "Downtown": {
-      "n": 844,
-      "avg_days": null
+      "avg_days": 3.34,
+      "source_labels": [
+        "Chinatown"
+      ],
+      "is_catchall": false
     },
     "Bay Village": {
       "n": 145,
-      "avg_days": null
+      "avg_days": 6.1,
+      "source_labels": [
+        "Bay Village"
+      ],
+      "is_catchall": false
     },
     "North End": {
       "n": 1256,
-      "avg_days": null
+      "avg_days": 4.97,
+      "source_labels": [
+        "North End"
+      ],
+      "is_catchall": false
     },
     "West End": {
       "n": 183,
-      "avg_days": null
+      "avg_days": 4.83,
+      "source_labels": [
+        "West End"
+      ],
+      "is_catchall": false
     },
     "Leather District": {
       "n": 31,
-      "avg_days": null
-    },
-    "South Boston Waterfront": {
-      "n": 261,
-      "avg_days": null
-    },
-    "Fenway": {
-      "n": 818,
-      "avg_days": null
+      "avg_days": 0.87,
+      "source_labels": [
+        "Leather District"
+      ],
+      "is_catchall": false
     }
   },
   "top_categories": {
@@ -481,8 +553,5 @@
     "Utility Contractor Complaints": 34,
     "Litter & Debris": 25
   },
-  "warnings": [
-    "avg_resolution[311 Service Requests - 2026]: gave up after 5 attempts: HTTP Error 403: Forbidden",
-    "avg_resolution[311 Service Requests - NEW SYSTEM]: gave up after 5 attempts: HTTP Error 403: Forbidden"
-  ]
+  "warnings": []
 }
