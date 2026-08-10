@@ -391,23 +391,42 @@ def main():
             warn(f"{y} totalled 0 rows across {len(srcs)} resource(s)")
         print(f"  {y}: {annual[str(y)]}  {per}")
 
-    # Latest year with data drives the detail views.
-    detail_year = max((int(y) for y, v in annual.items() if v), default=this_year)
-    print(f"\nDetail year: {detail_year}")
-    dsrcs = sources_for(detail_year)
+    # Detail views for the latest year and the two complete years before it.
+    # The tab's charts are per-year, and a single year cannot answer whether a
+    # figure on it is stale or was measuring something different all along —
+    # comparing this year's partial total against a prior full year proves
+    # nothing either way.
+    populated = sorted(int(y) for y, v in annual.items() if v)
+    detail_years = populated[-3:] if populated else [this_year]
+    detail_year = detail_years[-1]
+    print(f"\nDetail years: {detail_years}")
 
-    nb = merge_neighborhoods([
-        guard(f"by_neighborhood[{r['name']}]",
-              lambda r=r: by_neighborhood(r, r["cols"], detail_year), {})
-        for r in dsrcs])
-    cats = merge_counts([
-        guard(f"by_category[{r['name']}]",
-              lambda r=r: by_category(r, r["cols"], detail_year), {})
-        for r in dsrcs])
-    stale = merge_counts([
-        guard(f"unresolved[{r['name']}]",
-              lambda r=r: unresolved_over_30d(r, r["cols"], detail_year), {})
-        for r in dsrcs])
+    details = {}
+    for dy in detail_years:
+        dsrcs = sources_for(dy)
+        print(f"  detail {dy} from {[r['name'] for r in dsrcs]}")
+        details[str(dy)] = {
+            "by_neighborhood": merge_neighborhoods([
+                guard(f"by_neighborhood[{dy}][{r['name']}]",
+                      lambda r=r, dy=dy: by_neighborhood(r, r["cols"], dy), {})
+                for r in dsrcs]),
+            "top_categories": merge_counts([
+                guard(f"by_category[{dy}][{r['name']}]",
+                      lambda r=r, dy=dy: by_category(r, r["cols"], dy), {})
+                for r in dsrcs]),
+            "unresolved_over_30d_by_type": merge_counts([
+                guard(f"unresolved[{dy}][{r['name']}]",
+                      lambda r=r, dy=dy: unresolved_over_30d(r, r["cols"], dy), {})
+                for r in dsrcs]),
+        }
+
+    # Top-level keys stay pointed at the newest year so existing consumers keep
+    # working; the per-year breakdown lives under `details`. Read them back
+    # rather than re-running the same queries a second time.
+    latest = details[str(detail_year)]
+    nb = latest["by_neighborhood"]
+    cats = latest["top_categories"]
+    stale = latest["unresolved_over_30d_by_type"]
 
     rodents = {}
     for y in years:
@@ -426,6 +445,8 @@ def main():
                  "differently-structured NEW SYSTEM resource when the backend "
                  "changed in Oct 2025. Years from 2025 union both."),
         "detail_year": detail_year,
+        "detail_years": [str(y) for y in detail_years],
+        "details": details,
         "resources_used": [
             {"name": r["name"], "id": r["id"], "kind": r["kind"],
              "year": r["year"], "last_modified": r["last_modified"],
