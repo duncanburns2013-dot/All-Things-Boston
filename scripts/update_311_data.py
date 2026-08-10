@@ -55,6 +55,37 @@ OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
 FIRST_YEAR = 2019          # the tab's annual chart starts here
 STALE_DAYS = 30            # "unresolved >30 days"
 
+# The two schemas do not share a neighborhood vocabulary. Legacy uses Boston's
+# combined planning labels; NEW SYSTEM uses atomic ones. Merging on the raw
+# string therefore splits one place across several rows — South Boston came out
+# as three separate entries (7,792 + 2,574 + 261) and Allston/Brighton as three
+# more, while Dorchester happened to match in both and looked fine.
+#
+# Fold the atomic names into the combined labels, which is what the dashboard
+# and Boston's own neighborhood reporting use. Anything unmapped is reported.
+CANONICAL = {
+    "South Boston": "South Boston / South Boston Waterfront",
+    "South Boston Waterfront": "South Boston / South Boston Waterfront",
+    "Allston": "Allston / Brighton",
+    "Brighton": "Allston / Brighton",
+    "Downtown": "Downtown / Financial District",
+    "Financial District": "Downtown / Financial District",
+    "Fenway": "Fenway / Kenmore / Audubon Circle / Longwood",
+    "Kenmore": "Fenway / Kenmore / Audubon Circle / Longwood",
+    "Audubon Circle": "Fenway / Kenmore / Audubon Circle / Longwood",
+    "Longwood": "Fenway / Kenmore / Audubon Circle / Longwood",
+    "Mattapan": "Greater Mattapan",
+}
+
+# Not a neighborhood — the unassigned/citywide bucket. Kept in the output under
+# its own key so the total still reconciles, but flagged so it is never charted
+# as if it were a place.
+CATCHALL = {"Boston"}
+
+
+def canonical_neighborhood(name):
+    return CANONICAL.get(name, name)
+
 warnings = []
 
 
@@ -212,10 +243,14 @@ def by_neighborhood(res, cols, year):
         return out
 
     # Resolution time is a bonus, not a blocker.
+    #
+    # EXTRACT(EPOCH FROM (ts - ts)) is refused with 403 however it is paced, so
+    # subtract dates instead: in Postgres date - date yields an integer number of
+    # days directly, which is the unit wanted anyway and costs far less than
+    # building and decomposing an interval.
     def _avg():
         return sql(
-            f'SELECT "{nb}" AS nb, '
-            f'AVG(EXTRACT(EPOCH FROM ("{c}"::timestamp - "{o}"::timestamp))/86400.0) AS avg_days '
+            f'SELECT "{nb}" AS nb, AVG("{c}"::date - "{o}"::date) AS avg_days '
             f'FROM "{res["id"]}" WHERE {window} AND "{c}" IS NOT NULL GROUP BY "{nb}"')
 
     for r in guard(f"avg_resolution[{res['name']}]", _avg, []):
@@ -268,17 +303,29 @@ def unresolved_over_30d(res, cols, year, limit=15):
 
 
 def merge_neighborhoods(parts):
-    """Union per-resource neighborhood dicts, re-weighting the average by count."""
+    """
+    Union per-resource neighborhood dicts onto canonical names, re-weighting the
+    average by count.
+
+    Both steps matter. Canonicalising first stops one place being counted as
+    several; weighting by count stops a mean-of-means — averaging a 7,792-case
+    resource against a 261-case one as equals would be simply wrong.
+    """
     out = {}
     for part in parts:
-        for nb, v in part.items():
-            cur = out.setdefault(nb, {"n": 0, "_days_sum": 0.0, "_days_n": 0})
+        for raw, v in part.items():
+            nb = canonical_neighborhood(raw)
+            cur = out.setdefault(nb, {"n": 0, "_days_sum": 0.0, "_days_n": 0,
+                                      "_raw": set()})
             cur["n"] += v["n"]
+            cur["_raw"].add(raw)
             if v["avg_days"] is not None:
                 cur["_days_sum"] += v["avg_days"] * v["n"]
                 cur["_days_n"] += v["n"]
     for nb, v in out.items():
         v["avg_days"] = round(v["_days_sum"] / v["_days_n"], 2) if v["_days_n"] else None
+        v["source_labels"] = sorted(v.pop("_raw"))
+        v["is_catchall"] = nb in CATCHALL
         del v["_days_sum"], v["_days_n"]
     return out
 
