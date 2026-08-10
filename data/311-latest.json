@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-08-10T16:55:11.185464+00:00",
+  "fetched_at": "2026-08-10T17:04:53.151039+00:00",
   "source": "data.boston.gov CKAN \u2014 311 Service Requests",
   "dataset_url": "https://data.boston.gov/dataset/311-service-requests",
   "note": "Boston split 311 across a legacy per-year resource and a differently-structured NEW SYSTEM resource when the backend changed in Oct 2025. Years from 2025 union both.",
@@ -282,7 +282,136 @@
       "311 Service Requests - NEW SYSTEM": 31260
     }
   },
-  "by_neighborhood": {},
+  "by_neighborhood": {
+    "South Boston": {
+      "n": 2574,
+      "avg_days": null
+    },
+    "Boston": {
+      "n": 4319,
+      "avg_days": null
+    },
+    "Hyde Park": {
+      "n": 2786,
+      "avg_days": null
+    },
+    "West Roxbury": {
+      "n": 2800,
+      "avg_days": null
+    },
+    "Beacon Hill": {
+      "n": 2337,
+      "avg_days": null
+    },
+    "Downtown / Financial District": {
+      "n": 4526,
+      "avg_days": null
+    },
+    "Fenway / Kenmore / Audubon Circle / Longwood": {
+      "n": 1526,
+      "avg_days": null
+    },
+    "Dorchester": {
+      "n": 14186,
+      "avg_days": null
+    },
+    "Roslindale": {
+      "n": 3791,
+      "avg_days": null
+    },
+    "Brighton": {
+      "n": 2348,
+      "avg_days": null
+    },
+    "Charlestown": {
+      "n": 3706,
+      "avg_days": null
+    },
+    "Allston": {
+      "n": 1176,
+      "avg_days": null
+    },
+    "Back Bay": {
+      "n": 4805,
+      "avg_days": null
+    },
+    "Roxbury": {
+      "n": 9034,
+      "avg_days": null
+    },
+    "Jamaica Plain": {
+      "n": 5960,
+      "avg_days": null
+    },
+    "Mission Hill": {
+      "n": 1688,
+      "avg_days": null
+    },
+    "Greater Mattapan": {
+      "n": 2437,
+      "avg_days": null
+    },
+    "Mattapan": {
+      "n": 1059,
+      "avg_days": null
+    },
+    "Allston / Brighton": {
+      "n": 5683,
+      "avg_days": null
+    },
+    "South End": {
+      "n": 8705,
+      "avg_days": null
+    },
+    "Chestnut Hill": {
+      "n": 4,
+      "avg_days": null
+    },
+    "East Boston": {
+      "n": 7046,
+      "avg_days": null
+    },
+    "South Boston / South Boston Waterfront": {
+      "n": 7792,
+      "avg_days": null
+    },
+    "Longwood": {
+      "n": 88,
+      "avg_days": null
+    },
+    "Chinatown": {
+      "n": 214,
+      "avg_days": null
+    },
+    "Downtown": {
+      "n": 844,
+      "avg_days": null
+    },
+    "Bay Village": {
+      "n": 145,
+      "avg_days": null
+    },
+    "North End": {
+      "n": 1256,
+      "avg_days": null
+    },
+    "West End": {
+      "n": 183,
+      "avg_days": null
+    },
+    "Leather District": {
+      "n": 31,
+      "avg_days": null
+    },
+    "South Boston Waterfront": {
+      "n": 261,
+      "avg_days": null
+    },
+    "Fenway": {
+      "n": 818,
+      "avg_days": null
+    }
+  },
   "top_categories": {
     "Parking Enforcement": 37502,
     "Needle Pickup": 5463,
@@ -320,11 +449,40 @@
     "2025": 5211,
     "2026": 3152
   },
-  "unresolved_over_30d_by_type": {},
+  "unresolved_over_30d_by_type": {
+    "Parking Enforcement": 26425,
+    "Sign Repair": 1324,
+    "Street Light Outage": 579,
+    "Pruning Request": 399,
+    "Abandoned Bicycle": 320,
+    "Loud Parties/Music/People": 301,
+    "Sidewalk Repair": 249,
+    "Domestic Animal Issue": 235,
+    "Street Light Other": 194,
+    "Tree or Stump Removal": 141,
+    "Abandoned Vehicles": 139,
+    "Traffic Signal Inspection": 131,
+    "Request for Snow Plowing": 123,
+    "Transportation General Request": 112,
+    "Planting Request": 112,
+    "Requests for Street Cleaning": 110,
+    "Wild Animal Issue": 107,
+    "Sidewalk Repair (Make Safe)": 93,
+    "Illegal Graffiti": 89,
+    "Park Groundskeeping": 78,
+    "Request for Pothole Repair": 75,
+    "Broken Park Equipment": 73,
+    "Pothole": 68,
+    "Missing Sign": 66,
+    "Unsatisfactory Living Conditions": 51,
+    "New Sign  Crosswalk or Pavement Marking": 50,
+    "Unsafe Dangerous Conditions": 47,
+    "Street Light Knockdown": 45,
+    "Utility Contractor Complaints": 34,
+    "Litter & Debris": 25
+  },
   "warnings": [
-    "by_neighborhood[311 Service Requests - 2026]: gave up after 5 attempts: HTTP Error 403: Forbidden",
-    "by_neighborhood[311 Service Requests - NEW SYSTEM]: gave up after 5 attempts: HTTP Error 403: Forbidden",
-    "unresolved[311 Service Requests - 2026]: gave up after 5 attempts: HTTP Error 403: Forbidden",
-    "unresolved[311 Service Requests - NEW SYSTEM]: gave up after 5 attempts: HTTP Error 403: Forbidden"
+    "avg_resolution[311 Service Requests - 2026]: gave up after 5 attempts: HTTP Error 403: Forbidden",
+    "avg_resolution[311 Service Requests - NEW SYSTEM]: gave up after 5 attempts: HTTP Error 403: Forbidden"
   ]
 }
