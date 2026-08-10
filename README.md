@@ -16,7 +16,7 @@ City government accountability dashboard — **10 tabs, 50+ interactive charts**
 | Crime | 8 | Shooting geography, demographics, FBI rates | FBI UCR, BPD, Mass.gov EOPSS |
 | Education | 6 | BPS MCAS, achievement gaps, absenteeism | DESE/MCAS 2025 |
 | ICE | 4 | Boston AOR arrests, operations, nationalities | ICE ERO, UC Berkeley, Globe |
-| Commercial RE | 14 | 7-section deep-dive: vacancy → CMBS → tax impact | C&W, Trepp, Colliers, Boston Assessing, MLS PIN |
+| Commercial RE | 14 | 7-section deep-dive: vacancy → CMBS → tax impact | C&W Q2 2026, Trepp Jun 2026, Colliers, Boston Assessing, MLS PIN |
 | Housing | 6 | Residential sale prices, rent, inventory 2018–2026 | MLS PIN |
 | 311 Services | 7 | Service equity gap by neighborhood | data.boston.gov 311 open dataset |
 | Pension/OPEB | 6 | Funded ratio, unfunded liability, peer comparison | Boston Retirement System, ACFRs |
@@ -44,7 +44,7 @@ BPS earned **0 of 12 achievement points** at the high school level — every sub
 5,100+ administrative arrests in Boston AOR (Jan–Oct 2025), roughly 3× year-over-year despite sanctuary city policies. Operation Patriot (May 2025): 1,461 arrests. Operation Patriot 2.0 (Sep 2025): 1,400+. Top nationality: Brazil (~25%).
 
 ### Commercial Real Estate *(7-section deep-dive)*
-Office vacancy hit **18.5% in Q1 2026** (from <8% pre-COVID) — a 147% increase. After two quarters of stabilization in H2 2025, vacancy ticked back up 30 bps QoQ. Distressed sales closing at 31–62% discounts from prior value. CMBS office delinquency at **11.01%** — historic high. Commercial property assessments declined **−0.6% in FY2026**, first drop in a decade, shifting tax burden to residential homeowners. MLS PIN commercial supply: 67.6 months (balanced = 6–9 months). Bank CRE lending down 58% vs. pre-pandemic.
+Office vacancy reached **19.0% in Q2 2026** (from <8% pre-COVID) — a 153% increase. A fifth straight quarterly rise, though the smallest in more than a year. Distressed sales closing at 31–62% discounts from prior value. CMBS office delinquency at **11.57%** (Trepp, June 2026) — near its historic high, with all-property CMBS delinquency at 7.35%. Commercial property assessments declined **−0.6% in FY2026**, first drop in a decade, shifting tax burden to residential homeowners. MLS PIN commercial supply: 67.6 months (balanced = 6–9 months). Bank CRE lending down 58% vs. pre-pandemic.
 
 ### Housing
 Boston residential average single-family price up 55% since 2018 ($813K → $1.26M) but volume down 19%. Condo months supply hit **5.58** — approaching balanced market (6.0) for the first time since 2019. Average rent $3,781/month, up 29% since 2018. Condo inventory nearly doubled since 2022.
