@@ -1,0 +1,330 @@
+{
+  "fetched_at": "2026-08-10T16:55:11.185464+00:00",
+  "source": "data.boston.gov CKAN \u2014 311 Service Requests",
+  "dataset_url": "https://data.boston.gov/dataset/311-service-requests",
+  "note": "Boston split 311 across a legacy per-year resource and a differently-structured NEW SYSTEM resource when the backend changed in Oct 2025. Years from 2025 union both.",
+  "detail_year": 2026,
+  "resources_used": [
+    {
+      "name": "311 Service Requests - NEW SYSTEM",
+      "id": "254adca6-64ab-4c5c-9fc0-a6da622be185",
+      "kind": "new",
+      "year": null,
+      "last_modified": "2026-08-10T12:06:53.664159",
+      "columns": {
+        "opened": "open_date",
+        "closed": "close_date",
+        "category": "case_topic",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 Service Requests - 2026",
+      "id": "1a0b420d-99f1-4887-9851-990b2a5a6e17",
+      "kind": "legacy",
+      "year": 2026,
+      "last_modified": "2026-08-10T12:06:55.610592",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 Service Requests - 2025",
+      "id": "9d7c2214-4709-478a-a2e8-fb2020a5bb94",
+      "kind": "legacy",
+      "year": 2025,
+      "last_modified": "2026-01-26T14:36:42.000675",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 Service Requests - 2024",
+      "id": "dff4d804-5031-443a-8409-8344efd0e5c8",
+      "kind": "legacy",
+      "year": 2024,
+      "last_modified": "2025-01-13T16:43:15.371237",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 Service Requests - 2023",
+      "id": "e6013a93-1321-4f2a-bf91-8d8a02f1e62f",
+      "kind": "legacy",
+      "year": 2023,
+      "last_modified": "2025-01-13T16:57:45.472757",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2022",
+      "id": "81a7b022-f8fc-4da5-80e4-b160058ca207",
+      "kind": "legacy",
+      "year": 2022,
+      "last_modified": "2023-09-08T19:37:06.847501",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2021",
+      "id": "f53ebccd-bc61-49f9-83db-625f209c95f5",
+      "kind": "legacy",
+      "year": 2021,
+      "last_modified": "2023-09-08T19:39:37.822448",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2020",
+      "id": "6ff6a6fd-3141-4440-a880-6f60a37fe789",
+      "kind": "legacy",
+      "year": 2020,
+      "last_modified": "2023-09-08T19:42:16.137140",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2019",
+      "id": "ea2e4696-4a2d-429c-9807-d02eb92e0222",
+      "kind": "legacy",
+      "year": 2019,
+      "last_modified": "2023-09-08T19:44:39.685426",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2018",
+      "id": "2be28d90-3a90-4af1-a3f6-f28c1e25880a",
+      "kind": "legacy",
+      "year": 2018,
+      "last_modified": "2023-09-08T19:46:53.040647",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2017",
+      "id": "30022137-709d-465e-baae-ca155b51927d",
+      "kind": "legacy",
+      "year": 2017,
+      "last_modified": "2023-09-08T19:48:46.971736",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2016",
+      "id": "b7ea6b1b-3ca4-4c5b-9713-6dc1db52379a",
+      "kind": "legacy",
+      "year": 2016,
+      "last_modified": "2023-09-08T19:50:31.800918",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2015",
+      "id": "c9509ab4-6f6d-4b97-979a-0cf2a10c922b",
+      "kind": "legacy",
+      "year": 2015,
+      "last_modified": "2023-09-08T19:52:21.672575",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2014",
+      "id": "bdae89c8-d4ce-40e9-a6e1-a5203953a2e0",
+      "kind": "legacy",
+      "year": 2014,
+      "last_modified": "2023-09-08T19:54:11.543286",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2013",
+      "id": "407c5cd0-f764-4a41-adf8-054ff535049e",
+      "kind": "legacy",
+      "year": 2013,
+      "last_modified": "2023-09-08T19:55:41.293211",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2012",
+      "id": "382e10d9-1864-40ba-bef6-4eea3c75463c",
+      "kind": "legacy",
+      "year": 2012,
+      "last_modified": "2023-09-08T19:57:01.213274",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    },
+    {
+      "name": "311 SERVICE REQUESTS - 2011",
+      "id": "94b499d9-712a-4d2a-b790-7ceec5c9c4b1",
+      "kind": "legacy",
+      "year": 2011,
+      "last_modified": "2023-09-08T19:58:51.375406",
+      "columns": {
+        "opened": "open_dt",
+        "closed": "closed_dt",
+        "category": "type",
+        "neighborhood": "neighborhood",
+        "status": "case_status"
+      }
+    }
+  ],
+  "annual_totals": {
+    "2019": 259022,
+    "2020": 251222,
+    "2021": 273784,
+    "2022": 276599,
+    "2023": 266438,
+    "2024": 282836,
+    "2025": 271319,
+    "2026": 104535
+  },
+  "annual_provenance": {
+    "2019": {
+      "311 SERVICE REQUESTS - 2019": 259022
+    },
+    "2020": {
+      "311 SERVICE REQUESTS - 2020": 251222
+    },
+    "2021": {
+      "311 SERVICE REQUESTS - 2021": 273784
+    },
+    "2022": {
+      "311 SERVICE REQUESTS - 2022": 276599
+    },
+    "2023": {
+      "311 Service Requests - 2023": 266438
+    },
+    "2024": {
+      "311 Service Requests - 2024": 282836
+    },
+    "2025": {
+      "311 Service Requests - 2025": 267187,
+      "311 Service Requests - NEW SYSTEM": 4132
+    },
+    "2026": {
+      "311 Service Requests - 2026": 73275,
+      "311 Service Requests - NEW SYSTEM": 31260
+    }
+  },
+  "by_neighborhood": {},
+  "top_categories": {
+    "Parking Enforcement": 37502,
+    "Needle Pickup": 5463,
+    "Sign Repair": 4177,
+    "Abandoned Vehicles": 3832,
+    "Litter & Debris": 3534,
+    "Rodent Activity": 3152,
+    "Traffic Signal Inspection": 2849,
+    "Domestic Animal Issue": 2454,
+    "Street Light Outage": 2394,
+    "Fallen Tree or Branches": 1767,
+    "Wild Animal Issue": 1652,
+    "Pruning Request": 1610,
+    "Unsatisfactory Living Conditions": 1560,
+    "Missed Waste Pick-up": 1474,
+    "Pest Infestation - Residential": 1327,
+    "Park Groundskeeping": 1312,
+    "Dead Animal General": 1198,
+    "Sidewalk Repair": 1035,
+    "Improper Trash Storage": 1013,
+    "Pothole": 1007,
+    "Illegal Dumping or Disposal": 975,
+    "Broken Park Equipment": 884,
+    "Requests for Street Cleaning": 865,
+    "Tree or Stump Removal": 843,
+    "Trash Placed Out Early": 784
+  },
+  "rodent_by_year": {
+    "2019": 2633,
+    "2020": 3603,
+    "2021": 3624,
+    "2022": 4267,
+    "2023": 3940,
+    "2024": 5015,
+    "2025": 5211,
+    "2026": 3152
+  },
+  "unresolved_over_30d_by_type": {},
+  "warnings": [
+    "by_neighborhood[311 Service Requests - 2026]: gave up after 5 attempts: HTTP Error 403: Forbidden",
+    "by_neighborhood[311 Service Requests - NEW SYSTEM]: gave up after 5 attempts: HTTP Error 403: Forbidden",
+    "unresolved[311 Service Requests - 2026]: gave up after 5 attempts: HTTP Error 403: Forbidden",
+    "unresolved[311 Service Requests - NEW SYSTEM]: gave up after 5 attempts: HTTP Error 403: Forbidden"
+  ]
+}
