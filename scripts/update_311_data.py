@@ -481,6 +481,10 @@ def main():
             prev["warnings"] = warnings
             with open(OUT, "w", encoding="utf-8") as f:
                 json.dump(prev, f, indent=2)
+            # Stamp from the preserved payload too. The annual totals above ARE
+            # fresh, and the Total Requests KPI reads them, so returning here
+            # would leave the page quoting a count the file no longer holds.
+            stamp_page(prev)
             print(f"\nPreserved previous snapshot in {OUT} (annual totals refreshed)")
             return 0
         warn("detail aggregates all failed and no previous snapshot exists")
@@ -488,9 +492,203 @@ def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
+    stamp_page(payload)
     print(f"\nWrote {OUT}")
     print(f"  {len(nb)} neighborhoods, {len(cats)} categories, {len(warnings)} warning(s)")
     return 0
+
+
+
+# ---------------------------------------------------------------------------
+# index.html
+# ---------------------------------------------------------------------------
+# This script wrote data/311-latest.json and nothing wrote the page, so the 311
+# tab was hand-typed and every figure on it had drifted. Checked 2026-10-01
+# against the file this script produces:
+#
+#   published                          actual
+#   "3-4x longer" for 4 neighbourhoods  0.91x -- they are very slightly FASTER
+#   "Mattapan 11.2 days"                Greater Mattapan 4.12 days
+#   "Back Bay 3.1 days"                 3.37 days
+#   "3.6x service speed disparity"      0.91x
+#   "Dorchester alone = 25%"            14.6% of requests mapped to a nbhd
+#   "138K total requests"               241,676 (Jan-Sep 2026)
+#   "+62% rodent since 2019"            +98%
+#   "14% unresolved >30 days"           22.1%
+#
+# The headline was not merely stale, it was REVERSED: the four neighbourhoods
+# said to wait three to four times longer for 311 service do not wait longer at
+# all. A page that argues a service-equity gap from the city's own data has to
+# follow that data when it says otherwise.
+#
+# Anchors that fail to match abort rather than publishing a half-updated page.
+HTML = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    "index.html")
+
+# the four neighbourhoods the page names; "Mattapan" is "Greater Mattapan" in
+# the SOS-side vocabulary this script canonicalises to
+HIGH = ["Dorchester", "Roxbury", "Greater Mattapan", "Jamaica Plain"]
+MIN_N = 1000          # below this an average is too volatile to rank on
+
+
+def stamp_page(payload):
+    import re as _re
+    bn = {n: v for n, v in payload["by_neighborhood"].items()
+          if not v.get("is_catchall") and v.get("avg_days") is not None}
+    if len(bn) < 10:
+        print("  page: too few neighbourhoods to stamp safely - left alone")
+        return
+    total = sum(v["n"] for v in bn.values())
+    hi = [bn[n] for n in HIGH if n in bn]
+    lo = [v for n, v in bn.items() if n not in HIGH]
+    if not hi or not lo:
+        print("  page: cannot identify the named neighbourhoods - left alone")
+        return
+    hw = sum(v["avg_days"] * v["n"] for v in hi) / sum(v["n"] for v in hi)
+    lw = sum(v["avg_days"] * v["n"] for v in lo) / sum(v["n"] for v in lo)
+    ratio = hw / lw
+
+    big = {n: v for n, v in bn.items() if v["n"] >= MIN_N}
+    slowest = sorted(big.items(), key=lambda kv: -kv[1]["avg_days"])[:3]
+    dor = bn.get("Dorchester", {"n": 0})
+    rod = payload.get("rodent_by_year", {})
+    ry = sorted(rod)
+    rod_pct = ((rod[ry[-1]] / rod[ry[0]] - 1) * 100) if len(ry) >= 2 else None
+    year = payload.get("detail_year", "")
+
+    # THREE different totals live in this payload and they are not interchangeable:
+    #   232,203  the 23 real neighbourhoods          <- share/ratio denominator
+    #   240,638  + a "Boston" catch-all of 8,435 the city never assigned
+    #   241,676  + 1,038 with no neighbourhood field <- the actual request count
+    # "Total Requests" has to be the last of those. The first run of this stamper
+    # published 232,203 under that label, understating the year by 9,473 requests
+    # and inviting a comparison against the full-year 306,756 in 2024.
+    grand = payload.get("annual_totals", {}).get(str(year)) or total
+    catchall = sum(v["n"] for n, v in payload["by_neighborhood"].items()
+                   if v.get("is_catchall"))
+
+    # Partial year: the 2026 figure is Jan-Sep, against 280K-307K for full years.
+    # Labelling it plain "2026" reads as a 21% collapse in 311 volume that is
+    # really just a short year -- the same trap as calling semi-annual lobbying
+    # filings "this year".
+    fetched = str(payload.get("fetched_at", ""))
+    partial = fetched[:4] == str(year)
+    months = {"01": "January", "02": "February", "03": "March", "04": "April",
+              "05": "May", "06": "June", "07": "July", "08": "August",
+              "09": "September", "10": "October", "11": "November",
+              "12": "December"}.get(fetched[5:7], "")
+    span = f"{year} YTD" if partial else str(year)
+    span_long = (f"January–{months} {year}" if partial and months
+                 else str(year))
+
+    uns = payload.get("unresolved_over_30d_by_type", {})
+    # by TYPE, not by neighbourhood, so these counts span the catch-all and the
+    # unmapped records too -- the denominator is every request, not just the
+    # neighbourhood-attributed ones.
+    uns_pct = sum(uns.values()) / grand * 100 if uns and grand else None
+
+    faster = "slightly faster" if ratio < 1 else "slightly slower"
+    slow_txt = ", ".join(f"{n} ({v['avg_days']:.1f}d)" for n, v in slowest)
+    dor_pct = dor["n"] / total * 100
+    callout = (
+        f'<div class="co red"><strong>What the 311 data actually shows:</strong> the four '
+        f'neighbourhoods absorbing 80% of Boston\u2019s shootings do <strong>not</strong> wait '
+        f'longer for 311 service. Weighted by request volume they average '
+        f'<strong>{hw:.1f} days</strong> to resolution against <strong>{lw:.1f}</strong> for the '
+        f'rest of the city \u2014 {faster}. The slowest resolutions are in {slow_txt}, none of '
+        f'which are in that group. Dorchester files the most requests of any neighbourhood '
+        f'({dor_pct:.1f}% of those mapped to one) because it is the largest, not because it is '
+        f'underserved. Caveats: this averages requests that were <em>closed</em>, and the open '
+        f'dataset does not break unresolved requests out by neighbourhood; of '
+        f'{grand:,} requests, {catchall:,} carry only a city-wide “Boston” label and '
+        f'are excluded from the neighbourhood figures. '
+        f'Source: data.boston.gov 311 open dataset, {span_long}.</div>')
+
+    subs = [
+        ("equity callout",
+         r'<div class="co red"><strong>(?:Service Equity Gap|What the 311 data actually shows):</strong>.*?</div>',
+         lambda m: callout),
+        ("total-requests KPI",
+         r'(<div class="kpi red"><div class="v">)[\d.]+K(</div><div class="lb">Total Requests<br>)[^<]*',
+         lambda m: f'{m.group(1)}{grand/1000:.0f}K{m.group(2)}{span}'),
+        # Every anchor below has to match this stamper's OWN output as well as
+        # the original hand-written markup, or the second run aborts on a page
+        # it wrote itself. That is exactly what happened the first time: the
+        # label became "Gtr Mattapan" and the anchor still wanted "Mattapan".
+        ("Mattapan KPI",
+         r'<div class="kpi red"><div class="v">[\d.]+d</div>'
+         r'<div class="lb">(?:Gtr )?Mattapan Avg<br>Resolution</div></div>',
+         lambda m: f'<div class="kpi red"><div class="v">{bn["Greater Mattapan"]["avg_days"]:.1f}d</div>'
+                   f'<div class="lb">Gtr Mattapan Avg<br>Resolution</div></div>'),
+        ("Back Bay KPI",
+         r'(<div class="kpi green"><div class="v">)[\d.]+d(</div><div class="lb">Back Bay Avg)',
+         lambda m: f'{m.group(1)}{bn["Back Bay"]["avg_days"]:.1f}d{m.group(2)}'),
+        ("disparity KPI",
+         r'<div class="kpi amber"><div class="v">[\d.]+\u00d7</div>'
+         r'<div class="lb">(?:Service Speed<br>Disparity|Those 4 vs<br>the Rest)'
+         r'</div></div>',
+         lambda m: f'<div class="kpi amber"><div class="v">{ratio:.2f}\u00d7</div>'
+                   f'<div class="lb">Those 4 vs<br>the Rest</div></div>'),
+        ("s1 subtitle",
+         r'(<h3>311 Complaints by Neighborhood )\([^)]*\)(</h3><p class="cs">)[^<]*',
+         lambda m: f'{m.group(1)}({span}, thousands){m.group(2)}'
+                   f'Red = the 4 neighbourhoods named above. Dorchester = '
+                   f'{dor_pct:.1f}% of the {total:,} requests mapped to a neighbourhood.'),
+        ("s4 subtitle",
+         r'(<h3>Average 311 Resolution Time by Neighborhood \(Days\)</h3><p class="cs">)[^<]*',
+         lambda m: f'{m.group(1)}Sorted slowest to fastest. Red = the 4 neighbourhoods '
+                   f'with 80% of shootings \u2014 they are not the slowest.'),
+    ]
+    if rod_pct is not None:
+        subs.append(("rodent KPI",
+                     r'(<div class="kpi purple"><div class="v">)[+\-][\d.]+%(</div><div class="lb">Rodent Complaints<br>)[^<]*',
+                     lambda m: f'{m.group(1)}{rod_pct:+.0f}%{m.group(2)}Since {ry[0]}'))
+    if uns_pct is not None:
+        # anchored on its own label: an unanchored "first kpi orange with a
+        # percentage" matched the EDUCATION tab's Grad Rate and rewrote 79.7% to
+        # 23% on the first run of this stamper.
+        subs.append(("unresolved KPI",
+                     r'(<div class="kpi orange"><div class="v">)[\d.]+%'
+                     r'(</div><div class="lb">Unresolved<br>)',
+                     lambda m: f'{m.group(1)}{uns_pct:.0f}%{m.group(2)}'))
+
+    # chart s1: hardcoded thousands, drifted (Dorchester 35.0K vs a real 34.0K,
+    # Roxbury 16.2K vs 21.0K)
+    top = sorted(bn.items(), key=lambda kv: -kv[1]["n"])[:11]
+    other = total - sum(v["n"] for _, v in top)
+    labels = [n.split(" / ")[0] for n, _ in top] + ["Other"]
+    vals = [round(v["n"] / 1000, 1) for _, v in top] + [round(other / 1000, 1)]
+    subs.append(("s1 chart data",
+                 r"(sc\('s1',\{type:'bar',data:\{labels:)\[[^\]]*\](,datasets:\[\{data:)\[[^\]]*\]",
+                 lambda m: m.group(1) + json.dumps(labels) + m.group(2) + json.dumps(vals)))
+    # The colour callback carried its OWN copy of the label list and looked the
+    # bar up by index. Replacing only the chart's labels left that copy stale and
+    # the red bars pointing at the wrong neighbourhoods. Keyed off the label
+    # itself now, so there is nothing left to drift.
+    short_high = [n.split(" / ")[0] for n in HIGH]
+    subs.append(("s1 colour callback",
+                 r"backgroundColor:function\(c\)\{(?:var n=\[[^\]]*\];)?return ?\[[^\]]*\]"
+                 r"\.indexOf\((?:n\[c\.dataIndex\]|c\.chart\.data\.labels\[c\.dataIndex\])\)"
+                 r">=0\?C\.r:C\.b\}",
+                 lambda m: "backgroundColor:function(c){return "
+                           + json.dumps(short_high)
+                           + ".indexOf(c.chart.data.labels[c.dataIndex])>=0?C.r:C.b}"))
+
+    with open(HTML, encoding="utf-8") as f:
+        html = f.read()
+    before = html
+    for label, pat, repl in subs:
+        html, n = _re.subn(pat, repl, html, count=1, flags=_re.S)
+        if n != 1:
+            sys.exit(f"index.html: anchor for '{label}' did not match - "
+                     f"refusing to publish a half-updated page")
+    if html == before:
+        print("  page: already current")
+        return
+    with open(HTML, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"  page: 311 tab stamped ({grand:,} requests, {ratio:.2f}x, "
+          f"Dorchester {dor_pct:.1f}%)")
 
 
 if __name__ == "__main__":

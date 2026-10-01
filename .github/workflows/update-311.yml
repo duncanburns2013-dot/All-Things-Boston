@@ -46,8 +46,15 @@ jobs:
           # files, so on the first run — when data/311-latest.json does not exist
           # yet — it reported "no change" and the job exited green having written
           # the file and thrown it away.
-          git add data/311-latest.json
-          if git diff --cached --quiet -- data/311-latest.json; then
+          # index.html MUST be staged alongside the JSON. The script stamps the
+          # 311 tab from the payload it just wrote, and staging only the JSON
+          # left those edits in the runner's working tree to be thrown away --
+          # a green job, a fresh data file, and a page still showing the old
+          # hand-written figures. That is how the tab came to claim 138K
+          # requests and an 11.2-day Mattapan wait against an actual 242K and
+          # 4.1 days.
+          git add data/311-latest.json index.html
+          if git diff --cached --quiet -- data/311-latest.json index.html; then
             echo "No change - nothing to commit."
             exit 0
           fi
