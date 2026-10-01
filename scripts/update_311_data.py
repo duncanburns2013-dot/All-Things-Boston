@@ -578,8 +578,11 @@ def stamp_page(payload):
               "09": "September", "10": "October", "11": "November",
               "12": "December"}.get(fetched[5:7], "")
     span = f"{year} YTD" if partial else str(year)
-    span_long = (f"January–{months} {year}" if partial and months
-                 else str(year))
+    # The exact end date, not a month range: a fetch on 1 October rendered as
+    # "January-October 2026" and claimed a month that had contributed half a day.
+    day = fetched[8:10].lstrip("0")
+    span_long = (f"1 January–{day} {months} {year}"
+                 if partial and months and day else str(year))
 
     uns = payload.get("unresolved_over_30d_by_type", {})
     # by TYPE, not by neighbourhood, so these counts span the catch-all and the
