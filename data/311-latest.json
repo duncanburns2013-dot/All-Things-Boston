@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-02T09:04:29.001015+00:00",
+  "fetched_at": "2026-11-09T19:18:56.865992+00:00",
   "source": "data.boston.gov CKAN \u2014 311 Service Requests",
   "dataset_url": "https://data.boston.gov/dataset/311-service-requests",
   "note": "Boston split 311 across a legacy per-year resource and a differently-structured NEW SYSTEM resource when the backend changed in Oct 2025. Years from 2025 union both.",
@@ -228,7 +228,7 @@
         },
         "Back Bay": {
           "n": 15563,
-          "avg_days": 7.75,
+          "avg_days": 7.78,
           "source_labels": [
             "Back Bay"
           ],
@@ -236,7 +236,7 @@
         },
         "Beacon Hill": {
           "n": 8868,
-          "avg_days": 5.77,
+          "avg_days": 5.8,
           "source_labels": [
             "Beacon Hill"
           ],
@@ -292,7 +292,7 @@
           "is_catchall": false
         },
         "Fenway / Kenmore / Audubon Circle / Longwood": {
-          "n": 5472,
+          "n": 5471,
           "avg_days": 10.49,
           "source_labels": [
             "Fenway",
@@ -320,7 +320,7 @@
         },
         "Jamaica Plain": {
           "n": 16290,
-          "avg_days": 10.27,
+          "avg_days": 10.3,
           "source_labels": [
             "Jamaica Plain"
           ],
@@ -352,7 +352,7 @@
         },
         "South Boston / South Boston Waterfront": {
           "n": 24915,
-          "avg_days": 8.1,
+          "avg_days": 8.11,
           "source_labels": [
             "South Boston",
             "South Boston / South Boston Waterfront",
@@ -362,7 +362,7 @@
         },
         "South End": {
           "n": 22751,
-          "avg_days": 6.43,
+          "avg_days": 6.45,
           "source_labels": [
             "South End"
           ],
@@ -444,7 +444,7 @@
         "Sticker Request": 2428,
         "Unsatisfactory Living Conditions": 2409,
         "Domestic Animal Issue": 1283,
-        "Street Light Outage": 1035,
+        "Street Light Outage": 1034,
         "Wild Animal Issue": 660,
         "Fallen Tree or Branches": 447,
         "Street Light Other": 174,
@@ -473,10 +473,10 @@
         "Roadway Repair": 546,
         "Ground Maintenance": 471,
         "Equipment Repair": 461,
-        "Street Light Outage": 160,
+        "Street Light Outage": 156,
         "Domestic Animal Issue": 90,
         "Wild Animal Issue": 44,
-        "Street Light Other": 26,
+        "Street Light Other": 24,
         "Lost Pet": 10,
         "Street Light Knockdown": 8,
         "Pruning Request": 3,
@@ -488,8 +488,8 @@
     "2026": {
       "by_neighborhood": {
         "Allston / Brighton": {
-          "n": 25859,
-          "avg_days": 4.48,
+          "n": 26415,
+          "avg_days": 4.46,
           "source_labels": [
             "Allston",
             "Allston / Brighton",
@@ -498,15 +498,15 @@
           "is_catchall": false
         },
         "Back Bay": {
-          "n": 13639,
-          "avg_days": 3.79,
+          "n": 13966,
+          "avg_days": 3.8,
           "source_labels": [
             "Back Bay"
           ],
           "is_catchall": false
         },
         "Beacon Hill": {
-          "n": 8099,
+          "n": 8274,
           "avg_days": 3.51,
           "source_labels": [
             "Beacon Hill"
@@ -514,16 +514,16 @@
           "is_catchall": false
         },
         "Boston": {
-          "n": 8840,
-          "avg_days": 4.46,
+          "n": 8924,
+          "avg_days": 4.47,
           "source_labels": [
             "Boston"
           ],
           "is_catchall": true
         },
         "Charlestown": {
-          "n": 8573,
-          "avg_days": 6.58,
+          "n": 8767,
+          "avg_days": 6.57,
           "source_labels": [
             "Charlestown"
           ],
@@ -538,16 +538,16 @@
           "is_catchall": false
         },
         "Dorchester": {
-          "n": 37540,
-          "avg_days": 4.32,
+          "n": 38267,
+          "avg_days": 4.44,
           "source_labels": [
             "Dorchester"
           ],
           "is_catchall": false
         },
         "Downtown / Financial District": {
-          "n": 13437,
-          "avg_days": 5.09,
+          "n": 13634,
+          "avg_days": 5.21,
           "source_labels": [
             "Downtown",
             "Downtown / Financial District"
@@ -555,16 +555,16 @@
           "is_catchall": false
         },
         "East Boston": {
-          "n": 17394,
-          "avg_days": 4.08,
+          "n": 17705,
+          "avg_days": 4.22,
           "source_labels": [
             "East Boston"
           ],
           "is_catchall": false
         },
         "Fenway / Kenmore / Audubon Circle / Longwood": {
-          "n": 6455,
-          "avg_days": 4.9,
+          "n": 6684,
+          "avg_days": 4.88,
           "source_labels": [
             "Fenway",
             "Fenway / Kenmore / Audubon Circle / Longwood",
@@ -573,8 +573,8 @@
           "is_catchall": false
         },
         "Greater Mattapan": {
-          "n": 9109,
-          "avg_days": 4.61,
+          "n": 9219,
+          "avg_days": 4.74,
           "source_labels": [
             "Greater Mattapan",
             "Mattapan"
@@ -582,39 +582,39 @@
           "is_catchall": false
         },
         "Hyde Park": {
-          "n": 7880,
-          "avg_days": 5.56,
+          "n": 8037,
+          "avg_days": 5.77,
           "source_labels": [
             "Hyde Park"
           ],
           "is_catchall": false
         },
         "Jamaica Plain": {
-          "n": 16159,
-          "avg_days": 4.6,
+          "n": 16499,
+          "avg_days": 4.75,
           "source_labels": [
             "Jamaica Plain"
           ],
           "is_catchall": false
         },
         "Mission Hill": {
-          "n": 4436,
-          "avg_days": 3.95,
+          "n": 4530,
+          "avg_days": 4.05,
           "source_labels": [
             "Mission Hill"
           ],
           "is_catchall": false
         },
         "Roslindale": {
-          "n": 9673,
-          "avg_days": 5.3,
+          "n": 9849,
+          "avg_days": 5.47,
           "source_labels": [
             "Roslindale"
           ],
           "is_catchall": false
         },
         "Roxbury": {
-          "n": 22983,
+          "n": 23376,
           "avg_days": 4.0,
           "source_labels": [
             "Roxbury"
@@ -622,8 +622,8 @@
           "is_catchall": false
         },
         "South Boston / South Boston Waterfront": {
-          "n": 23931,
-          "avg_days": 3.65,
+          "n": 24565,
+          "avg_days": 3.72,
           "source_labels": [
             "South Boston",
             "South Boston / South Boston Waterfront",
@@ -632,56 +632,56 @@
           "is_catchall": false
         },
         "South End": {
-          "n": 20474,
-          "avg_days": 4.7,
+          "n": 20942,
+          "avg_days": 4.67,
           "source_labels": [
             "South End"
           ],
           "is_catchall": false
         },
         "West Roxbury": {
-          "n": 7899,
-          "avg_days": 6.47,
+          "n": 8099,
+          "avg_days": 6.7,
           "source_labels": [
             "West Roxbury"
           ],
           "is_catchall": false
         },
         "Chinatown": {
-          "n": 689,
-          "avg_days": 3.43,
+          "n": 769,
+          "avg_days": 3.82,
           "source_labels": [
             "Chinatown"
           ],
           "is_catchall": false
         },
         "Bay Village": {
-          "n": 411,
-          "avg_days": 6.28,
+          "n": 435,
+          "avg_days": 6.0,
           "source_labels": [
             "Bay Village"
           ],
           "is_catchall": false
         },
         "North End": {
-          "n": 3074,
-          "avg_days": 4.57,
+          "n": 3289,
+          "avg_days": 4.49,
           "source_labels": [
             "North End"
           ],
           "is_catchall": false
         },
         "West End": {
-          "n": 517,
-          "avg_days": 4.29,
+          "n": 573,
+          "avg_days": 3.88,
           "source_labels": [
             "West End"
           ],
           "is_catchall": false
         },
         "Leather District": {
-          "n": 89,
-          "avg_days": 9.03,
+          "n": 95,
+          "avg_days": 8.59,
           "source_labels": [
             "Leather District"
           ],
@@ -692,84 +692,84 @@
         "Parking Enforcement": 52623,
         "Request for Snow Plowing": 12724,
         "Unshoveled Sidewalk": 11731,
+        "Litter & Debris": 11404,
         "Requests for Street Cleaning": 11009,
         "Improper Storage of Trash (Barrels)": 10950,
-        "Litter & Debris": 10838,
+        "Needle Pickup": 8480,
         "Request for Pothole Repair": 8428,
-        "Needle Pickup": 8276,
         "CE Collection": 6672,
-        "Rodent Activity": 5516,
+        "Rodent Activity": 5633,
+        "Illegal Parking": 5552,
         "Sign Repair": 5391,
         "Missed Trash/Recycling/Yard Waste/Bulk Item": 5076,
         "Abandoned Vehicles": 4760,
+        "Missed Waste Pick-up": 4517,
         "Poor Conditions of Property": 4347,
-        "Missed Waste Pick-up": 4268,
-        "Illegal Parking": 3885,
         "Traffic Signal Inspection": 3819,
-        "Improper Trash Storage": 3631,
+        "Improper Trash Storage": 3787,
+        "Street Light Outage": 3760,
+        "Domestic Animal Issue": 3631,
+        "Dead Animal General": 3594,
         "Sidewalk Repair (Make Safe)": 3592,
-        "Street Light Outage": 3582,
-        "Domestic Animal Issue": 3544,
-        "Dead Animal General": 3436,
+        "Illegal Dumping or Disposal": 3388,
+        "Trash Placed Out Early": 3348,
         "Pick up Dead Animal": 3250,
-        "Illegal Dumping or Disposal": 3248,
-        "Trash Placed Out Early": 3214,
-        "Sidewalk Repair": 2902,
-        "Pruning Request": 2524,
-        "Fallen Tree or Branches": 2514,
-        "Wild Animal Issue": 2495,
-        "Unsatisfactory Living Conditions": 2463,
-        "Pothole": 2425,
-        "Pest Infestation - Residential": 2265,
-        "Overflowing Trash": 2194,
+        "Sidewalk Repair": 3048,
+        "Pruning Request": 2567,
+        "Wild Animal Issue": 2547,
+        "Fallen Tree or Branches": 2536,
+        "Pothole": 2510,
+        "Unsatisfactory Living Conditions": 2504,
+        "Pest Infestation - Residential": 2339,
+        "Overflowing Trash": 2327,
+        "Illegally Blocked Sidewalk": 2031,
+        "Park Groundskeeping": 2000,
         "Request for Recycling Cart": 1995,
-        "Park Groundskeeping": 1957,
-        "Illegally Blocked Sidewalk": 1939,
+        "Other": 1846,
         "Illegal Dumping": 1785,
-        "Other": 1770,
         "Recycling Cart Return": 1654,
         "Empty Litter Basket": 1646,
         "Space Savers": 1510,
         "Graffiti Removal": 1399,
-        "Illegal Graffiti": 1286,
-        "Broken Park Equipment": 1284,
-        "Tree or Stump Removal": 1265,
-        "Overgrown Weeds": 1221,
-        "Utility Contractor Complaints": 1182,
+        "Illegal Graffiti": 1355,
+        "Broken Park Equipment": 1304,
+        "Tree or Stump Removal": 1283,
+        "Utility Contractor Complaints": 1249,
+        "Overgrown Weeds": 1240,
         "Sticker Request": 1178,
-        "Street Light Other": 884
+        "Street Light Other": 906
       },
       "unresolved_over_30d_by_type": {
-        "Parking Enforcement": 41831,
+        "Parking Enforcement": 43236,
         "Request for Snow Plowing": 3264,
-        "Sidewalk Repair (Make Safe)": 2392,
+        "Sidewalk Repair (Make Safe)": 2391,
         "Request for Pothole Repair": 2105,
-        "Sign Repair": 1863,
-        "Sidewalk Repair": 1605,
+        "Sign Repair": 1747,
+        "Sidewalk Repair": 1696,
         "Improper Storage of Trash (Barrels)": 1033,
         "Unshoveled Sidewalk": 688,
-        "Pruning Request": 620,
-        "Abandoned Bicycle": 606,
+        "Pruning Request": 644,
+        "Abandoned Bicycle": 624,
+        "Street Light Outage": 613,
         "Space Savers": 605,
-        "Street Light Outage": 568,
         "Requests for Street Cleaning": 559,
-        "Transportation General Request": 409,
+        "Pothole": 434,
+        "Transportation General Request": 426,
         "Misc. Snow Complaint": 405,
-        "Pothole": 398,
-        "Traffic Signal Inspection": 397,
+        "Traffic Signal Inspection": 396,
+        "Illegal Graffiti": 390,
         "Encampments": 389,
-        "Illegal Graffiti": 366,
-        "Domestic Animal Issue": 353,
+        "Domestic Animal Issue": 359,
         "Loud Parties/Music/People": 301,
-        "Utility Contractor Complaints": 248,
-        "Tree or Stump Removal": 213,
-        "Litter & Debris": 206,
-        "Wild Animal Issue": 203,
-        "Street Light Other": 178,
-        "Illegally Blocked Sidewalk": 176,
-        "Planting Request": 139,
-        "Broken Park Equipment": 82,
-        "Park Groundskeeping": 78
+        "Litter & Debris": 287,
+        "Utility Contractor Complaints": 272,
+        "Tree or Stump Removal": 222,
+        "Wild Animal Issue": 214,
+        "Illegally Blocked Sidewalk": 199,
+        "Street Light Other": 183,
+        "Planting Request": 115,
+        "Broken Park Equipment": 94,
+        "Missed Waste Pick-up": 89
       }
     }
   },
@@ -779,7 +779,7 @@
       "id": "254adca6-64ab-4c5c-9fc0-a6da622be185",
       "kind": "new",
       "year": null,
-      "last_modified": "2026-11-01T16:05:03.217459",
+      "last_modified": "2026-11-09T15:44:27.993764",
       "columns": {
         "opened": "open_date",
         "closed": "close_date",
@@ -793,7 +793,7 @@
       "id": "1a0b420d-99f1-4887-9851-990b2a5a6e17",
       "kind": "legacy",
       "year": 2026,
-      "last_modified": "2026-11-01T16:08:31.472841",
+      "last_modified": "2026-11-09T15:44:08.380329",
       "columns": {
         "opened": "open_dt",
         "closed": "closed_dt",
@@ -1020,8 +1020,8 @@
     "2022": 272931,
     "2023": 307791,
     "2024": 306756,
-    "2025": 280223,
-    "2026": 268223
+    "2025": 280222,
+    "2026": 273980
   },
   "annual_provenance": {
     "2019": {
@@ -1044,17 +1044,17 @@
     },
     "2025": {
       "311 Service Requests - 2025": 276093,
-      "311 Service Requests - NEW SYSTEM": 4130
+      "311 Service Requests - NEW SYSTEM": 4129
     },
     "2026": {
-      "311 Service Requests - 2026": 191300,
-      "311 Service Requests - NEW SYSTEM": 76923
+      "311 Service Requests - 2026": 191722,
+      "311 Service Requests - NEW SYSTEM": 82258
     }
   },
   "by_neighborhood": {
     "Allston / Brighton": {
-      "n": 25859,
-      "avg_days": 4.48,
+      "n": 26415,
+      "avg_days": 4.46,
       "source_labels": [
         "Allston",
         "Allston / Brighton",
@@ -1063,15 +1063,15 @@
       "is_catchall": false
     },
     "Back Bay": {
-      "n": 13639,
-      "avg_days": 3.79,
+      "n": 13966,
+      "avg_days": 3.8,
       "source_labels": [
         "Back Bay"
       ],
       "is_catchall": false
     },
     "Beacon Hill": {
-      "n": 8099,
+      "n": 8274,
       "avg_days": 3.51,
       "source_labels": [
         "Beacon Hill"
@@ -1079,16 +1079,16 @@
       "is_catchall": false
     },
     "Boston": {
-      "n": 8840,
-      "avg_days": 4.46,
+      "n": 8924,
+      "avg_days": 4.47,
       "source_labels": [
         "Boston"
       ],
       "is_catchall": true
     },
     "Charlestown": {
-      "n": 8573,
-      "avg_days": 6.58,
+      "n": 8767,
+      "avg_days": 6.57,
       "source_labels": [
         "Charlestown"
       ],
@@ -1103,16 +1103,16 @@
       "is_catchall": false
     },
     "Dorchester": {
-      "n": 37540,
-      "avg_days": 4.32,
+      "n": 38267,
+      "avg_days": 4.44,
       "source_labels": [
         "Dorchester"
       ],
       "is_catchall": false
     },
     "Downtown / Financial District": {
-      "n": 13437,
-      "avg_days": 5.09,
+      "n": 13634,
+      "avg_days": 5.21,
       "source_labels": [
         "Downtown",
         "Downtown / Financial District"
@@ -1120,16 +1120,16 @@
       "is_catchall": false
     },
     "East Boston": {
-      "n": 17394,
-      "avg_days": 4.08,
+      "n": 17705,
+      "avg_days": 4.22,
       "source_labels": [
         "East Boston"
       ],
       "is_catchall": false
     },
     "Fenway / Kenmore / Audubon Circle / Longwood": {
-      "n": 6455,
-      "avg_days": 4.9,
+      "n": 6684,
+      "avg_days": 4.88,
       "source_labels": [
         "Fenway",
         "Fenway / Kenmore / Audubon Circle / Longwood",
@@ -1138,8 +1138,8 @@
       "is_catchall": false
     },
     "Greater Mattapan": {
-      "n": 9109,
-      "avg_days": 4.61,
+      "n": 9219,
+      "avg_days": 4.74,
       "source_labels": [
         "Greater Mattapan",
         "Mattapan"
@@ -1147,39 +1147,39 @@
       "is_catchall": false
     },
     "Hyde Park": {
-      "n": 7880,
-      "avg_days": 5.56,
+      "n": 8037,
+      "avg_days": 5.77,
       "source_labels": [
         "Hyde Park"
       ],
       "is_catchall": false
     },
     "Jamaica Plain": {
-      "n": 16159,
-      "avg_days": 4.6,
+      "n": 16499,
+      "avg_days": 4.75,
       "source_labels": [
         "Jamaica Plain"
       ],
       "is_catchall": false
     },
     "Mission Hill": {
-      "n": 4436,
-      "avg_days": 3.95,
+      "n": 4530,
+      "avg_days": 4.05,
       "source_labels": [
         "Mission Hill"
       ],
       "is_catchall": false
     },
     "Roslindale": {
-      "n": 9673,
-      "avg_days": 5.3,
+      "n": 9849,
+      "avg_days": 5.47,
       "source_labels": [
         "Roslindale"
       ],
       "is_catchall": false
     },
     "Roxbury": {
-      "n": 22983,
+      "n": 23376,
       "avg_days": 4.0,
       "source_labels": [
         "Roxbury"
@@ -1187,8 +1187,8 @@
       "is_catchall": false
     },
     "South Boston / South Boston Waterfront": {
-      "n": 23931,
-      "avg_days": 3.65,
+      "n": 24565,
+      "avg_days": 3.72,
       "source_labels": [
         "South Boston",
         "South Boston / South Boston Waterfront",
@@ -1197,56 +1197,56 @@
       "is_catchall": false
     },
     "South End": {
-      "n": 20474,
-      "avg_days": 4.7,
+      "n": 20942,
+      "avg_days": 4.67,
       "source_labels": [
         "South End"
       ],
       "is_catchall": false
     },
     "West Roxbury": {
-      "n": 7899,
-      "avg_days": 6.47,
+      "n": 8099,
+      "avg_days": 6.7,
       "source_labels": [
         "West Roxbury"
       ],
       "is_catchall": false
     },
     "Chinatown": {
-      "n": 689,
-      "avg_days": 3.43,
+      "n": 769,
+      "avg_days": 3.82,
       "source_labels": [
         "Chinatown"
       ],
       "is_catchall": false
     },
     "Bay Village": {
-      "n": 411,
-      "avg_days": 6.28,
+      "n": 435,
+      "avg_days": 6.0,
       "source_labels": [
         "Bay Village"
       ],
       "is_catchall": false
     },
     "North End": {
-      "n": 3074,
-      "avg_days": 4.57,
+      "n": 3289,
+      "avg_days": 4.49,
       "source_labels": [
         "North End"
       ],
       "is_catchall": false
     },
     "West End": {
-      "n": 517,
-      "avg_days": 4.29,
+      "n": 573,
+      "avg_days": 3.88,
       "source_labels": [
         "West End"
       ],
       "is_catchall": false
     },
     "Leather District": {
-      "n": 89,
-      "avg_days": 9.03,
+      "n": 95,
+      "avg_days": 8.59,
       "source_labels": [
         "Leather District"
       ],
@@ -1257,28 +1257,28 @@
     "Parking Enforcement": 52623,
     "Request for Snow Plowing": 12724,
     "Unshoveled Sidewalk": 11731,
+    "Litter & Debris": 11404,
     "Requests for Street Cleaning": 11009,
     "Improper Storage of Trash (Barrels)": 10950,
-    "Litter & Debris": 10838,
+    "Needle Pickup": 8480,
     "Request for Pothole Repair": 8428,
-    "Needle Pickup": 8276,
     "CE Collection": 6672,
-    "Rodent Activity": 5516,
+    "Rodent Activity": 5633,
+    "Illegal Parking": 5552,
     "Sign Repair": 5391,
     "Missed Trash/Recycling/Yard Waste/Bulk Item": 5076,
     "Abandoned Vehicles": 4760,
+    "Missed Waste Pick-up": 4517,
     "Poor Conditions of Property": 4347,
-    "Missed Waste Pick-up": 4268,
-    "Illegal Parking": 3885,
     "Traffic Signal Inspection": 3819,
-    "Improper Trash Storage": 3631,
+    "Improper Trash Storage": 3787,
+    "Street Light Outage": 3760,
+    "Domestic Animal Issue": 3631,
+    "Dead Animal General": 3594,
     "Sidewalk Repair (Make Safe)": 3592,
-    "Street Light Outage": 3582,
-    "Domestic Animal Issue": 3544,
-    "Dead Animal General": 3436,
-    "Pick up Dead Animal": 3250,
-    "Illegal Dumping or Disposal": 3248,
-    "Trash Placed Out Early": 3214
+    "Illegal Dumping or Disposal": 3388,
+    "Trash Placed Out Early": 3348,
+    "Pick up Dead Animal": 3250
   },
   "rodent_by_year": {
     "2019": 2355,
@@ -1288,39 +1288,39 @@
     "2023": 3937,
     "2024": 5013,
     "2025": 5225,
-    "2026": 5516
+    "2026": 5633
   },
   "unresolved_over_30d_by_type": {
-    "Parking Enforcement": 41831,
+    "Parking Enforcement": 43236,
     "Request for Snow Plowing": 3264,
-    "Sidewalk Repair (Make Safe)": 2392,
+    "Sidewalk Repair (Make Safe)": 2391,
     "Request for Pothole Repair": 2105,
-    "Sign Repair": 1863,
-    "Sidewalk Repair": 1605,
+    "Sign Repair": 1747,
+    "Sidewalk Repair": 1696,
     "Improper Storage of Trash (Barrels)": 1033,
     "Unshoveled Sidewalk": 688,
-    "Pruning Request": 620,
-    "Abandoned Bicycle": 606,
+    "Pruning Request": 644,
+    "Abandoned Bicycle": 624,
+    "Street Light Outage": 613,
     "Space Savers": 605,
-    "Street Light Outage": 568,
     "Requests for Street Cleaning": 559,
-    "Transportation General Request": 409,
+    "Pothole": 434,
+    "Transportation General Request": 426,
     "Misc. Snow Complaint": 405,
-    "Pothole": 398,
-    "Traffic Signal Inspection": 397,
+    "Traffic Signal Inspection": 396,
+    "Illegal Graffiti": 390,
     "Encampments": 389,
-    "Illegal Graffiti": 366,
-    "Domestic Animal Issue": 353,
+    "Domestic Animal Issue": 359,
     "Loud Parties/Music/People": 301,
-    "Utility Contractor Complaints": 248,
-    "Tree or Stump Removal": 213,
-    "Litter & Debris": 206,
-    "Wild Animal Issue": 203,
-    "Street Light Other": 178,
-    "Illegally Blocked Sidewalk": 176,
-    "Planting Request": 139,
-    "Broken Park Equipment": 82,
-    "Park Groundskeeping": 78
+    "Litter & Debris": 287,
+    "Utility Contractor Complaints": 272,
+    "Tree or Stump Removal": 222,
+    "Wild Animal Issue": 214,
+    "Illegally Blocked Sidewalk": 199,
+    "Street Light Other": 183,
+    "Planting Request": 115,
+    "Broken Park Equipment": 94,
+    "Missed Waste Pick-up": 89
   },
   "warnings": []
 }
